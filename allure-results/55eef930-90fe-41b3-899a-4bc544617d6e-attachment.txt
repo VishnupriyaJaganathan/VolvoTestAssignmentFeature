@@ -1,0 +1,7 @@
+{
+  "script": "return (function scrollElementIntoView(element, addressBarShadowPadding) {\n    var currentPosition = 0;\n    var htmlNode = document.querySelector('html');\n    var bodyNode = document.querySelector('body');\n    if (htmlNode.scrollTop > 0) {\n        currentPosition = htmlNode.scrollTop;\n    }\n    if (bodyNode.scrollTop > 0) {\n        currentPosition = bodyNode.scrollTop;\n    }\n    var top = element.getBoundingClientRect().top;\n    var yPosition = top - addressBarShadowPadding;\n    if (htmlNode.scrollHeight > htmlNode.clientHeight) {\n        htmlNode.scrollTop = yPosition;\n        if (htmlNode.scrollTop === yPosition) {\n            return currentPosition;\n        }\n    }\n    if (bodyNode.scrollHeight > bodyNode.clientHeight) {\n        bodyNode.scrollTop = yPosition;\n        if (bodyNode.scrollTop === yPosition) {\n            return currentPosition;\n        }\n    }\n    return currentPosition;\n}).apply(null, arguments)",
+  "args": [
+    {},
+    6
+  ]
+}

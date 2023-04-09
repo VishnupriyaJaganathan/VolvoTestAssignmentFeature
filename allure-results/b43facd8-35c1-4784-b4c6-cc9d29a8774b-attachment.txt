@@ -1,0 +1,4 @@
+{
+  "using": "css selector",
+  "value": "button[data-tracking-name=\"nav-primary-link-buy\"]"
+}

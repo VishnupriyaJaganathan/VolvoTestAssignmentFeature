@@ -1,0 +1,5 @@
+{
+  "error": "no such element",
+  "message": "no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//button[@aria-label=\"Go back in Site Navigation\"]\"}\n  (Session info: chrome=112.0.5615.50)",
+  "stacktrace": "Backtrace:\n\tGetHandleVerifier [0x00E8DCE3+50899]\n\t(No symbol) [0x00E1E111]\n\t(No symbol) [0x00D25588]\n\t(No symbol) [0x00D508F9]\n\t(No symbol) [0x00D50AFB]\n\t(No symbol) [0x00D7F902]\n\t(No symbol) [0x00D6B944]\n\t(No symbol) [0x00D7E01C]\n\t(No symbol) [0x00D6B6F6]\n\t(No symbol) [0x00D47708]\n\t(No symbol) [0x00D4886D]\n\tGetHandleVerifier [0x010F3EAE+2566302]\n\tGetHandleVerifier [0x011292B1+2784417]\n\tGetHandleVerifier [0x0112327C+2759788]\n\tGetHandleVerifier [0x00F25740+672048]\n\t(No symbol) [0x00E28872]\n\t(No symbol) [0x00E241C8]\n\t(No symbol) [0x00E242AB]\n\t(No symbol) [0x00E171B7]\n\tBaseThreadInitThunk [0x760A7D69+25]\n\tRtlInitializeExceptionChain [0x7729B74B+107]\n\tRtlClearBits [0x7729B6CF+191]\n"
+}

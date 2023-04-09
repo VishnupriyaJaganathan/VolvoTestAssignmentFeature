@@ -1,0 +1,4 @@
+{
+  "using": "xpath",
+  "value": "//button[@aria-label=\"Go back in Site Navigation\"]"
+}

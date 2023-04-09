@@ -1,0 +1,5 @@
+{
+  "error": "no such element",
+  "message": "no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\"button[data-tracking-name=\"nav-primary-link-buy\"]\"}\n  (Session info: chrome=112.0.5615.50)",
+  "stacktrace": "Backtrace:\n\tGetHandleVerifier [0x00F3DCE3+50899]\n\t(No symbol) [0x00ECE111]\n\t(No symbol) [0x00DD5588]\n\t(No symbol) [0x00E008F9]\n\t(No symbol) [0x00E00AFB]\n\t(No symbol) [0x00E2F902]\n\t(No symbol) [0x00E1B944]\n\t(No symbol) [0x00E2E01C]\n\t(No symbol) [0x00E1B6F6]\n\t(No symbol) [0x00DF7708]\n\t(No symbol) [0x00DF886D]\n\tGetHandleVerifier [0x011A3EAE+2566302]\n\tGetHandleVerifier [0x011D92B1+2784417]\n\tGetHandleVerifier [0x011D327C+2759788]\n\tGetHandleVerifier [0x00FD5740+672048]\n\t(No symbol) [0x00ED8872]\n\t(No symbol) [0x00ED41C8]\n\t(No symbol) [0x00ED42AB]\n\t(No symbol) [0x00EC71B7]\n\tBaseThreadInitThunk [0x760A7D69+25]\n\tRtlInitializeExceptionChain [0x7729B74B+107]\n\tRtlClearBits [0x7729B6CF+191]\n"
+}

@@ -1,0 +1,4 @@
+{
+  "using": "xpath",
+  "value": ".//h1[normalize-space(text()) = \"Buy a Volvo Car\"] | .//h1[not(.//h1[normalize-space(text()) = \"Buy a Volvo Car\"]) and normalize-space() = \"Buy a Volvo Car\"]"
+}
