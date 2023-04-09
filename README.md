@@ -17,8 +17,7 @@ To install this project, follow these steps:
 
 ## Usage
 
-To run the tests, use the following command:
+To run the tests, use the following command in terminal:
 
-```bash
-npm test
+npx wdio wdio.conf.js
 
