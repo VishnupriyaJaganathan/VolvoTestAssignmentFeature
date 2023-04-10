@@ -21,3 +21,6 @@ To run the tests, use the following command in terminal:
 
 npx wdio wdio.conf.js
 
+#Note:
+Testcasedocument copied in the same location
+
