@@ -125,6 +125,7 @@
     "is-wsl": "^2.2.0",
     "isarray": "^2.0.5",
     "isexe": "^2.0.0",
+    "jimp": "^0.3.11",
     "js-tokens": "^4.0.0",
     "json-buffer": "^3.0.1",
     "json-parse-even-better-errors": "^2.3.1",

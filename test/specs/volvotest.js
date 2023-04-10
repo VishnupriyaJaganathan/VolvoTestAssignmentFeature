@@ -6,7 +6,6 @@ const { expect } = require('chai');
 const assert = require('assert');
 
 describe('Volvo Car Safety Page', () => {
-
   it('should have the correct page title', async () => {
     browser.url('https://www.volvocars.com/intl/v/car-safety/a-million-more');
     // Wait for page title to match the expected value
@@ -22,7 +21,7 @@ describe('Volvo Car Safety Page', () => {
     await browser.pause(5000);
   });
 
-  it('Verify Our Cars clickable', async () => {
+  it('Verify OurCars link clickable', async () => {
     const ourCars = $('//button/em[text()="Our Cars"]');
     await ourCars.waitForClickable();
     // Verify that the button is clickable
@@ -30,6 +29,65 @@ describe('Volvo Car Safety Page', () => {
     const isClickable = await ourCars.isClickable();
     expect(isClickable).to.be.true;
   });
+
+  it('Verify video component is displayed', async () => {
+    const videoComponent = $('//div[@id="Video-1"]//video');
+
+    // Check that the video component element is present in the DOM
+    expect(videoComponent).to.exist;
+
+    // Wait for the video component to be displayed and loaded
+    await videoComponent.waitForDisplayed();
+    await browser.pause(5000);
+    await videoComponent.scrollIntoView();
+
+    await browser.setWindowSize(1280, 720);
+    // Wait for the video to play for 5 seconds
+    await browser.pause(5000);
+
+    // Take a screenshot of the video component
+    const screenshotPath = path.join(process.cwd(), 'test', 'screenshots', 'video1.png');
+    await browser.saveScreenshot(screenshotPath);
+
+    // Compare the screenshot with a reference image
+    const referenceImagePath = path.join(process.cwd(), 'test', 'references', 'video1.png');
+    const [img1, img2] = await Promise.all([
+      readImage(screenshotPath),
+      readImage(referenceImagePath),
+    ]);
+
+    const diff = new PNG({ width: img1.width, height: img1.height });
+    const mismatchedPixels = pixelmatch(
+      img1.data,
+      img2.data,
+      diff.data,
+      img1.width,
+      img1.height,
+      { threshold: 0.1 }
+    );
+
+    // Save the diff image for debugging
+    const diffImagePath = path.join(process.cwd(), 'test', 'screenshots', 'video-diff.png');
+    diff.pack().pipe(fs.createWriteStream(diffImagePath));
+
+    // Assert that the images are similar enough
+    const numPixels = img1.width * img1.height;
+    const mismatchRatio = mismatchedPixels / numPixels;
+    expect(mismatchRatio).to.be.below(0.05);
+  });
+
+  async function readImage(filePath) {
+    return new Promise((resolve, reject) => {
+      fs.createReadStream(filePath)
+        .pipe(new PNG())
+        .on('parsed', function () {
+          resolve(this);
+        })
+        .on('error', function (err) {
+          reject(err);
+        });
+    });
+  }
 
   it('should display Safety features section', () => {
     const iconCallouts = $('//div[@data-component="IconCallouts"]');
@@ -56,7 +114,7 @@ describe('Volvo Car Safety Page', () => {
     });
   });
 
-  it('should display paragraphs under IconTextItem section', () => {
+  it('should display paragraphs under Icons of Safety features', () => {
     const iconTextContents = $$('//div[@data-autoid="IconTextItem:text"]');
     iconTextContents.forEach((iconTextContent, index) => {
       const textParagraphs = iconTextContent.$$('p');
@@ -71,17 +129,17 @@ describe('Volvo Car Safety Page', () => {
     });
   });
 
-  it('should redirect to a new page on clicking IconCallouts CTA', async () => {
+  it('Verify Learn more about car safety link clickable', async () => {
     const ctaElement = $('//a[@data-autoid="iconCallouts:cta"]');
     await ctaElement.scrollIntoView();
     await ctaElement.waitForClickable();
     const isClickablecta = await ctaElement.isClickable();
     expect(isClickablecta).to.be.true;
   });
-  
+
   it('should display VideoTestimonials section', function () {
     const videoTestimonialsSection = $('//div[@data-component="VideoTestimonials"]');
-   // videoTestimonialsSection.scrollIntoView();
+    // videoTestimonialsSection.scrollIntoView();
     expect(videoTestimonialsSection.isExisting(), 'VideoTestimonials section not found');
     browser.pause(10000);
     const videoElements = $$('//video[contains(@data-autoid,"videoTestimonials:video")]');
@@ -93,23 +151,23 @@ describe('Volvo Car Safety Page', () => {
         expect.ifError(err);
         // Click the video to start playing
         videoElement.click();
-  
+
         // Wait for the video to start playing
         browser.waitUntil(function () {
           return !videoElement.paused();
         }, 5000, `Video ${i + 1} did not start playing`);
-  
+
         // Wait for the video to finish playing
         browser.waitUntil(function () {
           return videoElement.ended();
         }, 20000, `Video ${i + 1} did not finish playing`);
-  
+
         // Verify that the video played for at least 5 seconds
         expect(videoElement.currentTime() >= 5, `Video ${i + 1} did not play for at least 5 seconds`);
       });
     }
   });
-  
+
   it('Verify Menu items', async () => {
     const Pagemenu = $('//button/em[text()="Menu"]');
     await Pagemenu.waitForClickable();
@@ -139,11 +197,10 @@ describe('Volvo Car Safety Page', () => {
     }
   });
 
-  it('should display car images under Explore our models section', async () => {
+  it('should display car Model names under Explore our models section', async () => {
     const exploreSection = $('//div[@data-component="ProductListCarousel"]');
     await exploreSection.scrollIntoView();
     assert.ok(await exploreSection.isExisting(), 'Explore our models section not found');
-
   });
 
   it('should click of  shop button redirect to another page', async () => {
@@ -167,65 +224,9 @@ describe('Volvo Car Safety Page', () => {
     } catch (error) {
       console.error(error);
     }
-
   });
-  /*
-        it('should display video component', async () => {
-          const videoComponent = $('//div[@id="Video-1"]//video');
-      
-          // Check that the video component element is present in the DOM
-          expect(videoComponent).to.exist;
-      
-          // Wait for the video component to be displayed and loaded
-          await videoComponent.waitForDisplayed();
-          await browser.pause(5000);
-          await videoComponent.scrollIntoView();
-      
-          await browser.setWindowSize(1280, 720);
-          // Wait for the video to play for 5 seconds
-          await browser.pause(5000);
-      
-          // Take a screenshot of the video component
-          const screenshotPath = path.join(process.cwd(), 'test', 'screenshots', 'video1.png');
-          await browser.saveScreenshot(screenshotPath);
-      
-          // Compare the screenshot with a reference image
-          const referenceImagePath = path.join(process.cwd(), 'test', 'reference', 'video1.png');
-          const comparisonResult = await compareImages(screenshotPath, referenceImagePath);
-          await browser.pause(10000);
-          console.log('comparisonResult:', comparisonResult);
-          expect(comparisonResult.isWithinMisMatchTolerance).to.equal(true);
-        })     
-      */
 });
 
-async function compareImages(screenshotPath, referenceImagePath) {
-  const [screenshot, referenceImage] = await Promise.all([
-    new Promise((resolve, reject) => {
-      fs.createReadStream(screenshotPath)
-        .pipe(new PNG())
-        .on('parsed', resolve)
-        .on('error', reject);
-    }),
-    new Promise((resolve, reject) => {
-      fs.createReadStream(referenceImagePath)
-        .pipe(new PNG())
-        .on('parsed', resolve)
-        .on('error', reject);
-    })
-  ]);
-
-  const { width, height } = referenceImage;
-  const misMatchThreshold = 0.1;
-
-  const diff = new PNG({ width, height });
-
-  const numDiffPixels = pixelmatch(screenshot.data, referenceImage.data, diff.data, width, height, { threshold: misMatchThreshold });
-
-  const isWithinMisMatchTolerance = numDiffPixels <= (width * height * misMatchThreshold);
-
-  return { numDiffPixels, isWithinMisMatchTolerance };
-}
 
 
 
